@@ -8,21 +8,18 @@ about simple and efficient code, refactor the code.
 """
 
 def RandomStringGenerator(l=12, a=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']):
-    p = 0
+    import random
     s = ''
-    while p<l:
-        import random
+    while len(s)<l:
         s += random.choice(a)
-        p += 1
     return s
 
 def BatchStringGenerator(n, a=8, b=12):
     r = []
     for i in range(n):
-        c = None
         if a < b:
             import random
-            c = random.choice(range(a, b))
+            c = random.choice(range(a, b+1))
         elif a == b:
             c = a
         else:
@@ -31,8 +28,19 @@ def BatchStringGenerator(n, a=8, b=12):
         r.append(RandomStringGenerator(c))
     return r
 
-a = input('Enter minimum string length: ')
-b = input('Enter maximum string length: ')
-n = input('How many random strings to generate? ')
+def input_integer(message):
+    while True:
+        try:
+            x = int(input(message))
+        except:
+            print('Value not valid, please try again.')
+            continue
+        break
+    return x
+            
+a = input_integer('Enter minimum string length: ')
+b = input_integer('Enter maximum string length: ')
+n = input_integer('How many random strings to generate? ')
 
-print(BatchStringGenerator(int(n), int(a), int(b)))
+
+print(BatchStringGenerator(n, a, b))
